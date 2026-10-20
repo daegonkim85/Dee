@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getCase, work, getPublishedCases } from "@/content/work";
 import { Placeholder } from "@/components/placeholder";
+import { CoverMedia } from "@/components/cover-media";
 import { Reveal } from "@/components/reveal";
 
 export function generateStaticParams() {
@@ -75,11 +76,12 @@ export default async function CaseStudyPage({
       </div>
 
       <div className="container-page mt-12">
-        <Placeholder
-          label={item.cover.label}
-          tone={item.cover.tone}
+        <CoverMedia
+          cover={item.cover}
           caption="Placeholder cover — real imagery to be added."
           ratio="wide"
+          priority
+          sizes="100vw"
         />
       </div>
 

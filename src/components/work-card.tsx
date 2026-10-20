@@ -1,14 +1,14 @@
 import Link from "next/link";
 import type { CaseStudy } from "@/content/work";
-import { Placeholder } from "@/components/placeholder";
+import { CoverMedia } from "@/components/cover-media";
 
 export function WorkCard({ item, index }: { item: CaseStudy; index?: number }) {
   const inner = (
     <>
-      <Placeholder
-        label={item.cover.label}
-        tone={item.cover.tone}
+      <CoverMedia
+        cover={item.cover}
         ratio="wide"
+        sizes="(min-width: 768px) 50vw, 100vw"
         className="transition-transform duration-500 group-hover:-translate-y-1"
       />
       <div className="mt-5 flex items-start justify-between gap-6">
