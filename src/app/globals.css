@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Light editorial palette */
+  --bg: 250 250 249;
+  --surface: 255 255 255;
+  --fg: 23 23 23;
+  --muted: 90 90 90;
+  --faint: 140 140 140;
+  --line: 224 222 219;
+  /* Bolder accent for the creative lean — vermillion */
+  --accent: 230 57 42;
+  --accent-fg: 255 255 255;
+}
+
+.dark {
+  --bg: 14 14 14;
+  --surface: 20 20 20;
+  --fg: 240 240 238;
+  --muted: 168 168 165;
+  --faint: 120 120 118;
+  --line: 44 44 44;
+  --accent: 255 92 76;
+  --accent-fg: 20 20 20;
+}
+
+* {
+  border-color: rgb(var(--line));
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: rgb(var(--bg));
+  color: rgb(var(--fg));
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background-color: rgb(var(--accent));
+  color: rgb(var(--accent-fg));
+}
+
+@layer components {
+  .eyebrow {
+    @apply text-[0.7rem] font-medium uppercase tracking-eyebrow text-faint;
+  }
+
+  .display {
+    @apply font-sans font-medium tracking-[-0.03em] leading-[0.98];
+  }
+
+  .hairline {
+    @apply border-t border-line;
+  }
+
+  .link-underline {
+    @apply relative inline-flex items-center gap-1 text-fg underline decoration-line underline-offset-4 transition-colors hover:decoration-accent hover:text-accent;
+  }
+
+  .container-page {
+    @apply mx-auto w-full max-w-content px-6 md:px-10;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
