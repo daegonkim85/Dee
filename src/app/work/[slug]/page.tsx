@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getCase, work, getPublishedCases } from "@/content/work";
-import { Placeholder } from "@/components/placeholder";
 import { CoverMedia } from "@/components/cover-media";
+import { Placeholder } from "@/components/placeholder";
 import { Reveal } from "@/components/reveal";
 
 export function generateStaticParams() {
@@ -37,61 +37,71 @@ export default async function CaseStudyPage({
   const currentIndex = published.findIndex((c) => c.slug === slug);
   const next = published[(currentIndex + 1) % published.length];
 
+  const metaRows = [
+    ["Role", item.meta.role],
+    ["Period", item.meta.period],
+    ["Scope", item.meta.scope],
+    ["Team", item.meta.team],
+  ] as const;
+
   return (
-    <article className="pb-16">
-      <div className="container-page pt-16 md:pt-20">
-        <nav className="mb-10 text-sm text-faint">
-          <Link href="/work" className="transition-colors hover:text-accent">
+    <article className="pb-20">
+      <div className="container-page pt-12 md:pt-16">
+        <nav className="mb-8 text-sm" aria-label="Breadcrumb">
+          <Link
+            href="/work"
+            className="font-medium text-muted transition-colors hover:text-accent"
+          >
             Work
-          </Link>{" "}
-          / <span className="text-muted">{item.client}</span>
+          </Link>
+          <span className="mx-2 text-faint">/</span>
+          <span className="text-fg">{item.client}</span>
         </nav>
 
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr]">
-          <div>
-            <p className="eyebrow mb-4">{item.category}</p>
-            <h1 className="display text-4xl leading-[1.02] md:text-6xl">
+        <div className="grid gap-10 lg:grid-cols-[1.25fr_0.75fr] lg:gap-14">
+          <header>
+            <p className="text-sm font-medium text-muted">{item.category}</p>
+            <h1 className="display mt-3 text-3xl md:text-4xl lg:text-5xl">
               {item.title}
             </h1>
-            <p className="mt-6 max-w-xl text-lg text-muted">{item.intro}</p>
-          </div>
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-muted md:text-lg">
+              {item.intro}
+            </p>
+          </header>
 
-          <dl className="self-start">
-            {[
-              ["Role", item.meta.role],
-              ["Period", item.meta.period],
-              ["Scope", item.meta.scope],
-              ["Team", item.meta.team],
-            ].map(([label, value]) => (
-              <div
-                key={label}
-                className="hairline grid grid-cols-[6rem_1fr] gap-4 py-4 first:border-t"
-              >
-                <dt className="eyebrow pt-0.5">{label}</dt>
-                <dd className="text-sm">{value}</dd>
+          <dl className="surface-card divide-y divide-line self-start overflow-hidden">
+            {metaRows.map(([label, value]) => (
+              <div key={label} className="grid grid-cols-[5.5rem_1fr] gap-3 px-5 py-4 md:px-6">
+                <dt className="text-xs font-semibold uppercase tracking-wide text-faint">
+                  {label}
+                </dt>
+                <dd className="text-sm leading-snug text-fg">{value}</dd>
               </div>
             ))}
           </dl>
         </div>
       </div>
 
-      <div className="container-page mt-12">
+      <div className="container-page mt-10 md:mt-12">
         <CoverMedia
           cover={item.cover}
-          caption="Placeholder cover — real imagery to be added."
+          caption={
+            item.cover.image
+              ? undefined
+              : "Placeholder cover — real imagery to be added."
+          }
           ratio="wide"
           priority
-          sizes="100vw"
         />
       </div>
 
       {item.metrics ? (
-        <div className="container-page mt-16">
-          <div className="hairline grid grid-cols-1 gap-8 pt-10 sm:grid-cols-3">
+        <div className="container-page mt-14 md:mt-16">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             {item.metrics.map((m) => (
               <Reveal key={m.label}>
-                <div>
-                  <div className="display text-4xl text-accent md:text-5xl">
+                <div className="surface-card p-6 text-center sm:text-left">
+                  <div className="display text-3xl text-accent md:text-4xl">
                     {m.value}
                   </div>
                   <div className="mt-2 text-sm text-muted">{m.label}</div>
@@ -102,36 +112,31 @@ export default async function CaseStudyPage({
         </div>
       ) : null}
 
-      {item.sections?.map((section) => (
-        <section key={section.heading} className="container-page mt-24">
+      {item.sections?.map((section, idx) => (
+        <section
+          key={section.heading}
+          className={`container-page ${idx === 0 ? "mt-16 md:mt-20" : "mt-14 md:mt-16"}`}
+        >
           <Reveal>
-            <div className="grid gap-8 md:grid-cols-[0.4fr_1fr]">
-              <div>
-                {section.eyebrow ? (
-                  <p className="eyebrow mb-3">{section.eyebrow}</p>
-                ) : null}
-              </div>
-              <div className="max-w-2xl">
-                <h2 className="display text-2xl leading-snug md:text-4xl">
-                  {section.heading}
-                </h2>
-                <div className="mt-6 space-y-5 text-lg leading-relaxed text-muted">
-                  {section.body.map((p, j) => (
-                    <p key={j}>{p}</p>
-                  ))}
-                </div>
+            <div className="max-w-3xl">
+              {section.eyebrow ? (
+                <p className="section-label mb-2">{section.eyebrow}</p>
+              ) : null}
+              <h2 className="display text-2xl md:text-3xl">{section.heading}</h2>
+              <div className="mt-5 space-y-4 text-base leading-relaxed text-muted md:text-lg">
+                {section.body.map((p, j) => (
+                  <p key={j}>{p}</p>
+                ))}
               </div>
             </div>
           </Reveal>
           {section.figure ? (
-            <div className="mt-10 md:grid md:grid-cols-[0.4fr_1fr] md:gap-8">
-              <div className="hidden md:block" aria-hidden="true" />
+            <div className="mt-8 max-w-4xl">
               <Placeholder
                 label={section.figure.label}
                 caption={section.figure.caption}
                 tone={section.figure.tone}
                 ratio={section.figure.ratio}
-                className="md:max-w-3xl"
               />
             </div>
           ) : null}
@@ -139,12 +144,12 @@ export default async function CaseStudyPage({
       ))}
 
       {item.ai ? (
-        <section className="container-page mt-24">
+        <section className="container-page mt-16 md:mt-20">
           <Reveal>
-            <div className="rounded-2xl border border-accent/40 bg-accent/5 p-8 md:p-12">
-              <p className="eyebrow mb-3 text-accent">AI workflow</p>
-              <h2 className="display text-2xl md:text-3xl">{item.ai.title}</h2>
-              <div className="mt-6 max-w-2xl space-y-4 text-lg leading-relaxed text-muted">
+            <div className="rounded-2xl border border-accent/30 bg-accent-muted/50 p-8 shadow-card md:p-10">
+              <p className="text-sm font-semibold text-accent">AI workflow</p>
+              <h2 className="display mt-2 text-2xl md:text-3xl">{item.ai.title}</h2>
+              <div className="mt-5 max-w-2xl space-y-4 text-base leading-relaxed text-muted">
                 {item.ai.body.map((p, i) => (
                   <p key={i}>{p}</p>
                 ))}
@@ -155,21 +160,20 @@ export default async function CaseStudyPage({
       ) : null}
 
       {next ? (
-        <section className="container-page mt-28">
-          <div className="hairline pt-10">
-            <p className="eyebrow mb-4">Next project</p>
-            <Link
-              href={`/work/${next.slug}`}
-              className="group flex items-end justify-between gap-6"
-            >
-              <h2 className="display max-w-2xl text-3xl transition-colors group-hover:text-accent md:text-5xl">
+        <section className="container-page mt-20 md:mt-24">
+          <p className="section-label mb-4">Next project</p>
+          <Link
+            href={`/work/${next.slug}`}
+            className="group surface-card-interactive flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between md:p-8"
+          >
+            <div>
+              <span className="text-sm font-medium text-muted">{next.client}</span>
+              <h2 className="display mt-1 text-xl transition-colors group-hover:text-accent md:text-2xl">
                 {next.title}
               </h2>
-              <span className="whitespace-nowrap text-sm text-faint transition-colors group-hover:text-accent">
-                {next.client} ↗
-              </span>
-            </Link>
-          </div>
+            </div>
+            <span className="text-sm font-medium text-accent">View case study →</span>
+          </Link>
         </section>
       ) : null}
     </article>

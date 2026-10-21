@@ -38,7 +38,7 @@ export default function AiProfilePage() {
 
   return (
     <div className="container-page py-20 md:py-28">
-      <p className="eyebrow mb-4">For humans and machines</p>
+      <p className="section-label mb-4">For humans and machines</p>
       <h1 className="display text-4xl md:text-6xl">AI-readable profile</h1>
       <p className="mt-6 max-w-2xl text-lg text-muted">
         A structured summary of who {site.name} is and what he does — designed to
@@ -51,7 +51,7 @@ export default function AiProfilePage() {
         <Field label="Based in">{profile.location}</Field>
 
         <div>
-          <p className="eyebrow mb-4">Featured work</p>
+          <p className="section-label mb-4">Featured work</p>
           <ul className="space-y-4">
             {profile.featuredWork.map((w) => (
               <li key={w.url} className="hairline pt-4 first:border-t">
@@ -89,7 +89,7 @@ function Field({
 }) {
   return (
     <div className="grid gap-2 md:grid-cols-[10rem_1fr]">
-      <p className="eyebrow pt-1">{label}</p>
+      <p className="section-label pt-1">{label}</p>
       <p className="max-w-2xl text-lg text-fg">{children}</p>
     </div>
   );

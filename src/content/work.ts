@@ -35,9 +35,8 @@ export type CaseStudy = {
   cover: {
     label: string;
     tone: "light" | "dark" | "accent";
-    /** Real cover image path (under /public). Falls back to a placeholder when unset. */
+    /** Path under public/, e.g. /work/turo-admin-tool/cover.jpg */
     image?: string;
-    /** Alt text for the cover image. Required when `image` is set. */
     alt?: string;
   };
   intro: string;
@@ -70,7 +69,7 @@ export const work: CaseStudy[] = [
       label: "Turo Admin Console",
       tone: "light",
       image: "/work/turo-admin-tool/cover.jpg",
-      alt: "Turo admin console showing a unified case view with identity, risk, and a live trip timeline.",
+      alt: "Turo admin tool — cover",
     },
     intro:
       "Turo's support and trust teams ran the marketplace from a patchwork of internal pages. I designed a unified admin cockpit that put the right action one glance away — and turned a tool people tolerated into one they relied on.",

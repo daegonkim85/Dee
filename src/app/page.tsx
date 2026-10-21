@@ -3,6 +3,7 @@ import { Hero } from "@/components/hero";
 import { Reveal } from "@/components/reveal";
 import { WorkCard } from "@/components/work-card";
 import { work, featuredSlugs } from "@/content/work";
+import { site } from "@/content/site";
 
 const featured = featuredSlugs
   .map((slug) => work.find((c) => c.slug === slug))
@@ -13,46 +14,47 @@ export default function HomePage() {
     <>
       <Hero />
 
-      <section className="container-page py-20">
-        <div className="mb-12 flex items-end justify-between">
+      <section className="container-page pb-20 md:pb-28" aria-labelledby="featured-heading">
+        <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="eyebrow mb-3">Selected work</p>
-            <h2 className="display text-3xl md:text-5xl">Featured projects</h2>
+            <h2 id="featured-heading" className="display text-2xl md:text-3xl">
+              Featured work
+            </h2>
+            <p className="mt-2 max-w-md text-sm text-muted">
+              Case studies from internal tools, marketplaces, and real-time
+              products.
+            </p>
           </div>
-          <Link
-            href="/work"
-            className="link-underline hidden text-sm sm:inline-flex"
-          >
-            View all ↗
+          <Link href="/work" className="link-subtle shrink-0">
+            See all projects →
           </Link>
         </div>
 
-        <div className="grid gap-12 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2 md:gap-8">
           {featured.map((item, i) => (
-            <Reveal key={item.slug} delay={i * 0.05}>
-              <WorkCard item={item} index={i} />
+            <Reveal key={item.slug} delay={i * 0.04}>
+              <WorkCard item={item} index={i} featured />
             </Reveal>
           ))}
         </div>
-
-        <div className="mt-12 sm:hidden">
-          <Link href="/work" className="link-underline text-sm">
-            View all work ↗
-          </Link>
-        </div>
       </section>
 
-      <section className="container-page py-20">
-        <div className="hairline grid gap-10 pt-12 md:grid-cols-[0.4fr_1fr]">
-          <p className="eyebrow pt-2">About</p>
-          <div className="max-w-2xl">
-            <p className="display text-2xl leading-snug md:text-3xl">
-              Nine-plus years of product design across entertainment, mobility,
-              workspace and communications — now folding in advertising,
-              creative, and AI tooling as a core part of the craft.
+      <section className="border-t border-line bg-surface/40">
+        <div className="container-page grid gap-8 py-16 md:grid-cols-2 md:items-center md:py-20">
+          <div>
+            <h2 className="display text-2xl md:text-3xl">About Dee</h2>
+            <p className="mt-4 text-base leading-relaxed text-muted md:text-lg">
+              Nine-plus years designing products at Disney, Turo, WeWork,
+              RingCentral, and Verizon — now expanding into advertising and
+              creative, with AI built into how I research, explore, and ship.
             </p>
-            <Link href="/about" className="link-underline mt-8 text-base">
-              More about Dee ↗
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/about" className="btn-secondary">
+              About &amp; experience
+            </Link>
+            <Link href={`mailto:${site.email}`} className="btn-primary">
+              Email {site.name.split(" ")[0]}
             </Link>
           </div>
         </div>

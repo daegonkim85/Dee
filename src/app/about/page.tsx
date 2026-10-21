@@ -11,86 +11,79 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="pb-16">
-      <section className="container-page pt-20 md:pt-28">
-        <p className="eyebrow mb-6">
-          About {site.name} · {site.location}
-        </p>
-        <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr]">
-          <h1 className="display text-4xl leading-[1.02] md:text-6xl">
-            {about.headline}
-          </h1>
-          <div className="max-w-xl space-y-5 text-lg leading-relaxed text-muted">
-            {about.intro.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
-            <div className="flex flex-wrap gap-4 pt-4">
-              <Link
-                href={`mailto:${site.email}`}
-                className="inline-flex rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-accent-fg transition-opacity hover:opacity-90"
-              >
-                Email Dee ↗
+    <div className="pb-20">
+      <section className="container-page pt-16 md:pt-22">
+        <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+          <div>
+            <p className="section-label mb-3">
+              {site.name} · {site.location}
+            </p>
+            <h1 className="display text-3xl md:text-4xl lg:text-[2.75rem]">
+              {about.headline}
+            </h1>
+          </div>
+          <div className="surface-card p-6 md:p-8">
+            <div className="space-y-4 text-base leading-relaxed text-muted">
+              {about.intro.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+            <div className="mt-8 flex flex-wrap gap-3 border-t border-line pt-6">
+              <Link href={`mailto:${site.email}`} className="btn-primary">
+                Email Dee
               </Link>
               <Link
                 href={site.resumeUrl}
-                className="link-underline text-sm"
+                className="btn-secondary"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Résumé ↗
+                Download résumé
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="container-page mt-28">
-        <div className="hairline grid gap-10 pt-12 md:grid-cols-[0.4fr_1fr]">
-          <p className="eyebrow pt-1">Experience</p>
-          <ul className="max-w-2xl">
-            {about.experience.map((job, i) => (
-              <Reveal as="li" key={job.company} delay={i * 0.04}>
-                <div className="flex items-baseline justify-between gap-6 border-b border-line py-5">
-                  <div>
-                    <div className="text-lg font-medium">{job.company}</div>
-                    <div className="text-sm text-muted">{job.role}</div>
-                  </div>
-                  <span className="whitespace-nowrap font-mono text-sm text-faint">
-                    {job.period}
-                  </span>
-                </div>
-              </Reveal>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <section className="container-page mt-28">
-        <div className="hairline grid gap-10 pt-12 md:grid-cols-[0.4fr_1fr]">
-          <p className="eyebrow pt-1">Approach</p>
-          <div className="grid max-w-3xl gap-10 sm:grid-cols-3">
-            {about.approach.map((a) => (
-              <Reveal key={a.title}>
+      <section className="container-page mt-16 md:mt-20">
+        <h2 className="section-label mb-6">Experience</h2>
+        <ul className="divide-y divide-line rounded-2xl border border-line bg-surface shadow-card">
+          {about.experience.map((job, i) => (
+            <Reveal as="li" key={job.company} delay={i * 0.03}>
+              <div className="flex flex-col gap-1 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:gap-6 md:px-6">
                 <div>
-                  <h3 className="text-lg font-medium">{a.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted">
-                    {a.body}
-                  </p>
+                  <div className="font-semibold text-fg">{job.company}</div>
+                  <div className="text-sm text-muted">{job.role}</div>
                 </div>
-              </Reveal>
-            ))}
-          </div>
+                <span className="font-mono text-sm text-faint">{job.period}</span>
+              </div>
+            </Reveal>
+          ))}
+        </ul>
+      </section>
+
+      <section className="container-page mt-16 md:mt-20">
+        <h2 className="section-label mb-6">Approach</h2>
+        <div className="grid gap-6 sm:grid-cols-3">
+          {about.approach.map((a) => (
+            <Reveal key={a.title}>
+              <div className="surface-card h-full p-6">
+                <h3 className="font-semibold text-fg">{a.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted">
+                  {a.body}
+                </p>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </section>
 
-      <section id="contact" className="container-page mt-28">
-        <div className="hairline grid gap-10 pt-12 md:grid-cols-[0.4fr_1fr]">
-          <p className="eyebrow pt-1">Skills &amp; tools</p>
-          <div className="grid max-w-3xl gap-10 sm:grid-cols-3">
-            <SkillGroup title="Design" items={about.skills.design} />
-            <SkillGroup title="AI" items={about.skills.ai} accent />
-            <SkillGroup title="Tools" items={about.skills.tools} />
-          </div>
+      <section id="contact" className="container-page mt-16 md:mt-20">
+        <h2 className="section-label mb-6">Skills &amp; tools</h2>
+        <div className="grid gap-6 sm:grid-cols-3">
+          <SkillGroup title="Design" items={about.skills.design} />
+          <SkillGroup title="AI" items={about.skills.ai} accent />
+          <SkillGroup title="Tools" items={about.skills.tools} />
         </div>
       </section>
     </div>
@@ -107,8 +100,10 @@ function SkillGroup({
   accent?: boolean;
 }) {
   return (
-    <div>
-      <h3 className={`text-sm font-medium ${accent ? "text-accent" : ""}`}>
+    <div className="surface-card p-6">
+      <h3
+        className={`text-sm font-semibold ${accent ? "text-accent" : "text-fg"}`}
+      >
         {title}
       </h3>
       <ul className="mt-4 space-y-2 text-sm text-muted">

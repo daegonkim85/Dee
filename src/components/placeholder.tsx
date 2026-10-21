@@ -13,13 +13,13 @@ const ratioClass: Record<NonNullable<PlaceholderProps["ratio"]>, string> = {
 };
 
 const toneClass: Record<NonNullable<PlaceholderProps["tone"]>, string> = {
-  light: "bg-surface text-faint",
+  light: "bg-surface-raised text-muted",
   dark: "bg-fg text-bg",
-  accent: "bg-accent text-accent-fg",
+  accent: "bg-accent-muted text-accent",
 };
 
 /**
- * Clearly-marked placeholder for imagery we don't yet have real assets for.
+ * Placeholder for imagery we don't yet have real assets for.
  */
 export function Placeholder({
   label,
@@ -31,17 +31,18 @@ export function Placeholder({
   return (
     <figure className={className}>
       <div
-        className={`relative flex ${ratioClass[ratio]} w-full items-center justify-center overflow-hidden rounded-xl border border-line ${toneClass[tone]}`}
+        className={`relative flex ${ratioClass[ratio]} w-full items-center justify-center overflow-hidden rounded-2xl border border-line shadow-card ${toneClass[tone]}`}
       >
         <div
-          className="absolute inset-0 opacity-[0.12]"
+          className="absolute inset-0 opacity-[0.35] dark:opacity-20"
           style={{
             backgroundImage:
-              "repeating-linear-gradient(45deg, currentColor 0, currentColor 1px, transparent 1px, transparent 14px)",
+              "radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)",
+            backgroundSize: "20px 20px",
           }}
           aria-hidden="true"
         />
-        <span className="relative z-10 px-6 text-center text-xs font-medium uppercase tracking-eyebrow">
+        <span className="relative z-10 max-w-[80%] px-6 text-center text-sm font-medium">
           {label}
         </span>
       </div>

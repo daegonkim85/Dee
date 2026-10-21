@@ -1,14 +1,20 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { DM_Sans, Syne, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { site } from "@/content/site";
 
-const sans = Inter({
+const sans = DM_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
+  display: "swap",
+});
+
+const display = Syne({
+  subsets: ["latin"],
+  variable: "--font-display",
   display: "swap",
 });
 
@@ -46,7 +52,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${sans.variable} ${mono.variable} font-sans`}>
+      <body
+        className={`${sans.variable} ${display.variable} ${mono.variable} font-sans antialiased`}
+      >
         <ThemeProvider>
           <div className="flex min-h-screen flex-col">
             <Nav />

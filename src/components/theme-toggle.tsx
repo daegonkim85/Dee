@@ -16,7 +16,7 @@ export function ThemeToggle() {
       type="button"
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="flex h-9 w-9 items-center justify-center rounded-full border border-line text-fg transition-colors hover:border-accent hover:text-accent"
+      className="flex h-9 w-9 items-center justify-center rounded-xl border border-line bg-surface text-fg shadow-sm transition-colors hover:border-accent/40 hover:text-accent"
     >
       {mounted ? (
         <svg
@@ -27,10 +27,7 @@ export function ThemeToggle() {
           aria-hidden="true"
         >
           <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5" />
-          <path
-            d="M12 3a9 9 0 0 0 0 18z"
-            fill="currentColor"
-          />
+          <path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor" />
         </svg>
       ) : (
         <span className="h-4 w-4" />

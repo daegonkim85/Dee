@@ -20,4 +20,6 @@ export const site = {
       "Dee Kim is a Los Angeles product designer with 9+ years across Disney, Turo, WeWork, RingCentral and Verizon — an AI-leveraging designer expanding into advertising and creative work.",
     url: "https://deekim.design",
   },
+  tagline:
+    "Product designer shipping across entertainment, mobility, and comms — now blending advertising, creative, and AI into how I work.",
 } as const;

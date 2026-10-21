@@ -9,25 +9,29 @@ export function Nav() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-bg/80 backdrop-blur">
-      <div className="container-page flex h-16 items-center justify-between">
-        <Link href="/" className="font-sans text-base font-semibold tracking-tight">
+    <header className="sticky top-0 z-50 border-b border-line bg-bg/90 shadow-nav backdrop-blur-md">
+      <div className="container-page flex h-[3.75rem] items-center justify-between gap-6">
+        <Link
+          href="/"
+          className="font-display text-lg font-semibold tracking-tight text-fg"
+        >
           {site.name}
         </Link>
 
-        <nav className="flex items-center gap-6">
-          <ul className="flex items-center gap-6 text-sm">
+        <nav className="flex items-center gap-2 sm:gap-4" aria-label="Main">
+          <ul className="flex items-center gap-1 rounded-xl border border-line bg-surface p-1 shadow-sm">
             {site.nav.map((item) => {
               const active =
-                pathname === item.href || pathname.startsWith(`${item.href}/`);
+                pathname === item.href ||
+                pathname.startsWith(`${item.href}/`);
               return (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className={`transition-colors hover:text-accent ${
+                    className={`block rounded-lg px-3.5 py-1.5 text-sm font-medium transition-colors ${
                       active
-                        ? "text-fg underline decoration-accent underline-offset-4"
-                        : "text-muted"
+                        ? "bg-bg text-fg shadow-sm"
+                        : "text-muted hover:text-fg"
                     }`}
                   >
                     {item.label}
@@ -37,11 +41,8 @@ export function Nav() {
             })}
           </ul>
 
-          <Link
-            href={site.cta.href}
-            className="hidden rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-fg transition-opacity hover:opacity-90 sm:inline-flex"
-          >
-            {site.cta.label} ↗
+          <Link href={site.cta.href} className="btn-primary hidden px-4 py-2 sm:inline-flex">
+            {site.cta.label}
           </Link>
 
           <ThemeToggle />
