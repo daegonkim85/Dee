@@ -13,7 +13,7 @@ export function Nav() {
       <div className="container-page flex h-[3.75rem] items-center justify-between gap-6">
         <Link
           href="/"
-          className="font-display text-lg font-semibold tracking-tight text-fg"
+          className="font-sans text-lg font-semibold tracking-tight text-fg"
         >
           {site.name}
         </Link>
